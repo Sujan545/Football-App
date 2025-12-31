@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../api/competitionApi";
-import MatchesCard from "../components/MatchesCard";
+import MatchesCard from "../components/MatchesList";
 import StandingsTable from "../components/StandingsTable";
 
 
@@ -34,7 +34,7 @@ const StandingsPage = () => {
     <div>
 
 
-      
+
       <h2>Recent Matches</h2>
       <MatchesCard matches={matches} />
 
