@@ -1,9 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Navbar from './components/Navbar'
-import Competitions from './pages/CompititionPage'
 import Home from './pages/HomePage'
 import Area from './pages/AreaPage'
+import Matches from './pages/Matches'
+import CompetitionPage from './pages/CompititionPage'
 
 export default function App() {
 
@@ -13,7 +14,9 @@ export default function App() {
       <div className='max-w-7xl mx-auto'>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/competitions' element={<Competitions />} />
+         <Route path="/competition/:id" element={<CompetitionPage />} />
+          {/* <Route path="/standings/:id" element={<Standings />} /> */}
+          <Route path="/matches/:id" element={<Matches />} />
           <Route path='/area' element={<Area/>} />
 
         </Routes>

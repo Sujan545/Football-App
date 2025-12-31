@@ -1,46 +1,68 @@
 import { useEffect, useState } from "react";
-import { CompetitionsApi } from "../api/competitionApi";
-import type { Competition } from "../types/football";
-import CompetitionCard from "../components/CompetitionCard";
+import { useParams } from "react-router-dom";
+import StandingsTable from "../components/StandingsTable";
+import { api } from "../api/competitionApi";
+import MatchesList from "../components/MatchesCard";
 
-export default function Competitions() {
-    const [competitions, setCompetitions] = useState<Competition[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
+const CompetitionPage = () => {
+  const { id } = useParams();
 
-    useEffect(() => {
-        const fetchCompetitions = async () => {
-            try {
-                const res = await CompetitionsApi.get("");
-                setCompetitions(res.data.competitions);
-            } catch (err) {
-                setError("Failed to load competitions");
-            } finally {
-                setLoading(false);
-            }
-        };
+  const [activeTab, setActiveTab] = useState<"matches" | "standings">("matches");
+  const [matches, setMatches] = useState<any[]>([]);
+  const [standings, setStandings] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
 
-        fetchCompetitions();
-    }, []);
+  useEffect(() => {
+    if (!id) return;
 
-    //console.log(competitions);
-    console.log(setCompetitions);
+    setLoading(true);
 
-    if (loading) {
-        return <p className="text-gray-400">Loading...</p>;
-    }
+    Promise.all([
+      api.get(`/v4/competitions/${id}/matches?limit=10`),
+      api.get(`/v4/competitions/${id}/standings`)
+    ])
+      .then(([matchesRes, standingsRes]) => {
+        setMatches(matchesRes.data.matches);
+        setStandings(standingsRes.data.standings[0].table);
+      })
+      .finally(() => setLoading(false));
+  }, [id]);
 
-    if (error) {
-        return <p className="text-gray-400">{error}</p>;
-    }
+  return (
+    <div>
+      {/* TABS */}
+      <div style={{ display: "flex", gap: "16px", marginBottom: "16px" }}>
+        <button
+          onClick={() => setActiveTab("matches")}
+          style={{
+            fontWeight: activeTab === "matches" ? "bold" : "normal"
+          }}
+        >
+          Matches
+        </button>
 
-    return (
-        
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {competitions.map((comp) => (
-                    <CompetitionCard key={comp.id} competition={comp} />
-                ))}
-            </div>
-     
-    );
-}
+        <button
+          onClick={() => setActiveTab("standings")}
+          style={{
+            fontWeight: activeTab === "standings" ? "bold" : "normal"
+          }}
+        >
+          Standings
+        </button>
+      </div>
+
+      {/* CONTENT */}
+      {loading && <p>Loading...</p>}
+
+      {!loading && activeTab === "matches" && (
+        <MatchesList matches={matches} />
+      )}
+
+      {!loading && activeTab === "standings" && (
+        <StandingsTable table={standings} />
+      )}
+    </div>
+  );
+};
+
+export default CompetitionPage;
