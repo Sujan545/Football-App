@@ -15,7 +15,7 @@ const StandingsTable = ({ table }: any) => {
         Pts
       </th>
       <th className="px-3 py-2 text-center text-sm font-semibold text-gray-600">
-        P
+        P.G
       </th>
       <th className="px-3 py-2 text-center text-sm font-semibold text-gray-600">
         GD
@@ -33,8 +33,8 @@ const StandingsTable = ({ table }: any) => {
           {row.position}
         </td>
 
-        <td className="px-3 py-2 text-sm font-medium text-gray-800">
-          {row.team.name}
+        <td className="px-3 py-2 text-sm font-medium text-gray-800 flex gap-2 items-center">
+         <img src={row.team.crest} alt="" className="h-6 w-6" /> {row.team.name}
         </td>
 
         <td className="px-3 py-2 text-center text-sm font-semibold text-gray-900">

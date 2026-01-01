@@ -55,9 +55,9 @@ const Sidebar = () => {
                                         <li key={comp.id}>
                                             <Link
                                                 to={`/competition/${comp.code}`}
-                                                className="block px-2 py-1 rounded hover:bg-gray-50 text-sm"
+                                                className="px-2 py-1 items-center flex gap-2 rounded hover:bg-gray-50 text-sm"
                                             >
-                                                {comp.name}
+                                               <img src={comp.emblem} alt="" className="w-6 h-6 "/>  {comp.name}
                                             </Link>
                                         </li>
                                     ))}
