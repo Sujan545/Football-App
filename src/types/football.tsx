@@ -19,3 +19,20 @@ export interface Competition {
 export interface CompetitionsResponse {
   competitions: Competition[];
 }
+
+export interface Player {
+  id: number;
+  name: string;
+  dateOfBirth: string;
+  nationality: string;
+  position: string;
+  shirtNumber?: number;
+  currentTeam?: {
+    id: number;
+    name: string;
+    crest: string;
+    venue: string;
+    founded: number;
+    clubColors: string;
+  };
+}
