@@ -30,10 +30,7 @@ const MatchesList = ({ matches }: any) => {
                     {match.homeTeam.tla}
                   </div>
                 </Link>
-
-
                 <span className="mx-2 text-gray-400">vs</span>
-
                 <Link
                   to={`/teams/${match.awayTeam.id}`}
                   className="flex items-center gap-2 hover:underline"
@@ -49,7 +46,6 @@ const MatchesList = ({ matches }: any) => {
                   </div>
                 </Link>
               </div>
-              {/* Date + Full Time */}
               <div className="flex flex-col items-center text-sm font-semibold text-gray-900">
                 <p className="text-xs text-gray-500">{date}</p>
                 <p>

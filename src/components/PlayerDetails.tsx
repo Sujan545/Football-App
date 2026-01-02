@@ -13,7 +13,6 @@ function calculateAge(dateOfBirth: string): number {
   const monthDiff = today.getMonth() - birthDate.getMonth();
   const dayDiff = today.getDate() - birthDate.getDate();
 
-  // If birthday hasn't occurred yet this year, subtract 1
   if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
     age--;
   }
@@ -28,7 +27,6 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
 
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-6">
-      {/* Header */}
       <div className="flex items-center gap-4">
         {player.currentTeam?.crest && (
           <img
@@ -46,7 +44,6 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
         </div>
       </div>
 
-      {/* Personal Info */}
       <Section title="Player Information">
         <Info label="First Name" value={player.firstName} />
         <Info label="Last Name" value={player.lastName} />
@@ -58,7 +55,6 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
         <Info label="Age" value={`${calculateAge(player.dateOfBirth)} years`}/>
       </Section>
 
-      {/* Team Info */}
       {player.currentTeam && (
         <Section title="Current Team">
           <Info label="Club Name" value={player.currentTeam.name} />
@@ -89,11 +85,10 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
         </Section>
       )}
 
-      {/* Competitions */}
-      {player.currentTeam?.runningCompetitions?.length > 0 && (
+      {player.currentTeam?.runningCompetitions.length > 0 && (
         <Section title="Running Competitions">
           <div className="grid grid-cols-2 gap-4">
-            {player.currentTeam.runningCompetitions.map(comp => (
+            {player.currentTeam.runningCompetitions?.map(comp => (
               <div
                 key={comp.id}
                 className="flex items-center gap-3 bg-gray-50 shadow rounded-lg p-4"
@@ -109,7 +104,6 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
         </Section>
       )}
 
-      {/* Contract */}
       {player.currentTeam?.contract && (
         <Section title="Contract">
           <Info label="Start" value={player.currentTeam.contract.start} />
