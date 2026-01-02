@@ -49,15 +49,6 @@ const MatchesList = ({ matches }: any) => {
                   </div>
                 </Link>
               </div>
-
-              {/* Half Time */}
-              <div className="flex flex-col items-center text-sm font-semibold text-gray-900">
-                <p className="text-xs text-gray-500">H.T</p>
-                <p>
-                  {match.score.halfTime.home} : {match.score.halfTime.away}
-                </p>
-              </div>
-
               {/* Date + Full Time */}
               <div className="flex flex-col items-center text-sm font-semibold text-gray-900">
                 <p className="text-xs text-gray-500">{date}</p>

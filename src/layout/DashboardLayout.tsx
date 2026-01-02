@@ -1,16 +1,27 @@
+import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import BackButton from "../shared/BackButton";
 
-
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+const DashboardLayout = () => {
   return (
-     <div className="flex h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
-      <Sidebar />
+      <aside className="w-64 bg-white shadow-md">
+        <Sidebar />
+      </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto p-6">
-        {children}
-      </main>
+      <div className="flex-1 flex flex-col">
+        {/* Header */}
+        <header className="sticky top-0 z-10 bg-white shadow px-6 py-4">
+          <BackButton />
+        </header>
+
+        {/* Page Content */}
+        <main className="flex-1 p-6">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 };
