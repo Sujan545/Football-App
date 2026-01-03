@@ -6,6 +6,7 @@ import MatchDetailsPage from './pages/MatchDetailsPage'
 import TeamDetailsPage from './pages/TeamDetailsPage'
 import PlayerDetailsPage from './pages/PlayerDetailsPage'
 import HomePage from './pages/HomePage'
+import ScorePage from './pages/ScorePage'
 
 export default function App() {
 
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/matches/:matchId" element={<MatchDetailsPage />} />
           <Route path="/teams/:teamId" element={<TeamDetailsPage />} />
           <Route path="/persons/:personId" element={<PlayerDetailsPage />} />
+          <Route path="/competition/:Id/scorers" element={<ScorePage />} />
         </Route>
       </Routes>
 

@@ -12,7 +12,7 @@ const CompetitionPage = () => {
     const [matches, setMatches] = useState<any[]>([]);
     const [standings, setStandings] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
-    const [competitions, setCompetitions] = useState<any []>([]);
+    const [competitions, setCompetitions] = useState<any[]>([]);
 
 
 
@@ -47,8 +47,8 @@ const CompetitionPage = () => {
                 <div className="flex gap-2 ">
                     {comp.code == id && (
                         <div className="flex items-center gap-3 pb-4 px-2">
-                            <img src={ comp.emblem} alt={ comp.name} className="w-10 h-10 " />
-                            <h1 className="font-semibold text-lg">{ comp.name}</h1>
+                            <img src={comp.emblem} alt={comp.name} className="w-10 h-10 " />
+                            <h1 className="font-semibold text-lg">{comp.name}</h1>
                         </div>
                     )}
                 </div>
@@ -56,30 +56,28 @@ const CompetitionPage = () => {
             }
             {/* TABS */}
             <div className="flex gap-4 mb-4">
-  <button
-    onClick={() => setActiveTab("matches")}
-    className={`px-3 py-1 rounded transition
-      ${
-        activeTab === "matches"
-          ? "font-bold text-gray-800 border-b-2 border-gray-800"
-          : "text-gray-500 hover:text-gray-700"
-      }`}
-  >
-    Matches
-  </button>
+                <button
+                    onClick={() => setActiveTab("matches")}
+                    className={`px-3 py-1 rounded transition
+      ${activeTab === "matches"
+                            ? "font-bold text-gray-800 border-b-2 border-gray-800"
+                            : "text-gray-500 hover:text-gray-700"
+                        }`}
+                >
+                    Matches
+                </button>
 
-  <button
-    onClick={() => setActiveTab("standings")}
-    className={`px-3 py-1 rounded transition
-      ${
-        activeTab === "standings"
-          ? "font-bold text-gray-800 border-b-2 border-gray-800"
-          : "text-gray-500 hover:text-gray-700"
-      }`}
-  >
-    Standings
-  </button>
-</div>
+                <button
+                    onClick={() => setActiveTab("standings")}
+                    className={`px-3 py-1 rounded transition
+      ${activeTab === "standings"
+                            ? "font-bold text-gray-800 border-b-2 border-gray-800"
+                            : "text-gray-500 hover:text-gray-700"
+                        }`}
+                >
+                    Standings
+                </button>
+            </div>
 
 
             {/* CONTENT */}
@@ -90,7 +88,7 @@ const CompetitionPage = () => {
             )}
 
             {!loading && activeTab === "standings" && (
-                <StandingsTable table={standings} />
+                <StandingsTable table={standings} comp={competitions} />
             )}
         </div>
     );
