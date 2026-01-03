@@ -1,21 +1,6 @@
-type Scorer = {
-  player: {
-    id: number;
-    name: string;
-    nationality: string;
-    position: string;
-  };
-  team: {
-    id: number;
-    name: string;
-    crest: string;
-  };
-  goals: number;
-  assists: number | null;
-  penalties: number | null;
-};
+import { Link } from "react-router-dom";
 
-const ScorersTable = ({ scorers }: { scorers: Scorer[] }) => {
+const ScorersTable = ({ scorers }: { scorers: any }) => {
   if (!scorers || scorers.length === 0) {
     return (
       <p className="text-sm text-gray-500">
@@ -26,13 +11,13 @@ const ScorersTable = ({ scorers }: { scorers: Scorer[] }) => {
 
   return (
     <div className="bg-white shadow rounded-lg overflow-hidden">
-      <h3 className="text-lg font-semibold px-4 py-3 border-b">
+      <h3 className="text-lg font-semibold px-4 py-3 border-gray-300 border-b">
         Top Scorers
       </h3>
 
       <div className="overflow-x-auto">
         <table className="min-w-full text-sm">
-          <thead className="bg-gray-100 text-gray-600">
+          <thead className="bg-gray-100">
             <tr>
               <th className="px-4 py-2 text-left">#</th>
               <th className="px-4 py-2 text-left">Player</th>
@@ -44,31 +29,41 @@ const ScorersTable = ({ scorers }: { scorers: Scorer[] }) => {
           </thead>
 
           <tbody>
-            {scorers.map((scorer, index) => (
+            {scorers.scorers.map((scorer, index) => (
               <tr
                 key={scorer.player.id}
-                className="border-t hover:bg-gray-50"
+                className="border-t border-gray-300 hover:bg-gray-50"
               >
                 <td className="px-4 py-2 font-medium">
                   {index + 1}
                 </td>
 
+                {/* PLAYER LINK */}
                 <td className="px-4 py-2">
-                  <p className="font-medium">
+                  <Link
+                    to={`/persons/${scorer.player.id}`}
+                    className="font-medium hover:underline"
+                  >
                     {scorer.player.name}
-                  </p>
+                  </Link>
                   <p className="text-xs text-gray-500">
                     {scorer.player.nationality}
                   </p>
                 </td>
 
-                <td className="px-4 py-2 flex items-center gap-2">
-                  <img
-                    src={scorer.team.crest}
-                    alt={scorer.team.name}
-                    className="w-6 h-6"
-                  />
-                  <span>{scorer.team.name}</span>
+                {/* TEAM LINK */}
+                <td className="px-4 py-2">
+                  <Link
+                    to={`/teams/${scorer.team.id}`}
+                    className="flex items-center gap-2 hover:underline"
+                  >
+                    <img
+                      src={scorer.team.crest}
+                      alt={scorer.team.name}
+                      className="w-6 h-6"
+                    />
+                    <span>{scorer.team.name}</span>
+                  </Link>
                 </td>
 
                 <td className="px-4 py-2 text-center font-semibold">

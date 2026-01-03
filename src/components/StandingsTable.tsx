@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
-
-const StandingsTable = ({ table,comp }: any) => {
+type Props = {
+  table?: any[];
+};
+const StandingsTable = ({ table=[] }: Props) => {
   if (!table.length) return <p>No standings available</p>;
 
   return (
-    <div className="w-full flex gap-2">
+   
 
-      <table className="w-1/2 border-collapse overflow-hidden rounded-lg shadow-sm">
+      <table className="w-full  border-collapse overflow-hidden rounded-lg shadow-sm">
         <thead className="bg-gray-100">
-          <tr>
+          <tr className="border-b border-gray-300">
             <th className="px-3 py-2 text-left text-sm font-semibold text-gray-600">
               #
             </th>
@@ -60,13 +62,8 @@ const StandingsTable = ({ table,comp }: any) => {
           ))}
         </tbody>
       </table>
-      <div className="w-1/2 border-collapse overflow-hidden rounded-lg shadow-sm">
-      {/* <Link  to={`/competitions/${}/scorers`}>
-      
-        <p>Top Scores</p>
-      </Link> */}
-      </div>
-    </div>
+     
+   
   );
 };
 

@@ -3,14 +3,16 @@ import { useParams } from "react-router-dom";
 import StandingsTable from "../components/StandingsTable";
 import { api } from "../api/competitionApi";
 import MatchesList from "../components/MatchesList";
+import ScorersTable from "../components/Scorer";
 
 
 const CompetitionPage = () => {
     const { id } = useParams();
 
-    const [activeTab, setActiveTab] = useState<"matches" | "standings">("matches");
+    const [activeTab, setActiveTab] = useState<"matches" | "standings" | "topScorers">("matches");
     const [matches, setMatches] = useState<any[]>([]);
     const [standings, setStandings] = useState<any[]>([]);
+    const [scorers, setScorers] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [competitions, setCompetitions] = useState<any[]>([]);
 
@@ -31,16 +33,20 @@ const CompetitionPage = () => {
         setLoading(true);
 
         Promise.all([
+
             api.get(`/v4/competitions/${id}/matches?limit=10`),
-            api.get(`/v4/competitions/${id}/standings`)
+            api.get(`/v4/competitions/${id}/standings`),
+            api.get(`/v4/competitions/${id}/scorers`)
         ])
-            .then(([matchesRes, standingsRes]) => {
+            .then(([matchesRes, standingsRes, scorersRes]) => {
                 setMatches(matchesRes.data.matches);
+                setScorers(scorersRes.data)
                 setStandings(standingsRes.data.standings[0].table);
             })
             .finally(() => setLoading(false));
     }, [id]);
-
+    console.log(scorers)
+    console.log(id)
     return (
         <div>
             {competitions.map((comp) => (
@@ -77,6 +83,16 @@ const CompetitionPage = () => {
                 >
                     Standings
                 </button>
+                <button
+                    onClick={() => setActiveTab("topScorers")}
+                    className={`px-3 py-1 rounded transition
+      ${activeTab === "topScorers"
+                            ? "font-bold text-gray-800 border-b-2 border-gray-800"
+                            : "text-gray-500 hover:text-gray-700"
+                        }`}
+                >
+                    Top Scorers
+                </button>
             </div>
 
 
@@ -88,7 +104,10 @@ const CompetitionPage = () => {
             )}
 
             {!loading && activeTab === "standings" && (
-                <StandingsTable table={standings} comp={competitions} />
+                <StandingsTable table={standings} />
+            )}
+            {!loading && activeTab === "topScorers" && (
+                <ScorersTable scorers={scorers} />
             )}
         </div>
     );

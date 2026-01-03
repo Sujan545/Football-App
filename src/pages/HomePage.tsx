@@ -1,15 +1,39 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { api } from "../api/competitionApi";
 
+const AREAS = [
+  { id: 2077, name: "Europe", emoji: "🌍", description: "UEFA leagues & tournaments" },
+  { id: 2267, name: "World", emoji: "🌎", description: "International competitions" },
+];
 
 const HomePage = () => {
+  const [activeArea, setActiveArea] = useState<number | null>(null);
+  const [competitions, setCompetitions] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  // Fetch competitions when area changes
+  useEffect(() => {
+    if (!activeArea) return;
+
+    setLoading(true);
+    setCompetitions([]);
+
+    api
+      .get(`/v4/competitions?areas=${activeArea}`)
+      .then(res => setCompetitions(res.data.competitions || []))
+      .catch(err => {
+        console.error("Error fetching competitions:", err);
+        setCompetitions([]);
+      })
+      .finally(() => setLoading(false));
+  }, [activeArea]);
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 p-6">
       {/* Hero Section */}
-      <section className="bg-linear-to-r from-indigo-600 to-blue-600 rounded-2xl p-8 text-white shadow">
-        <h1 className="text-3xl font-bold mb-2">
-          ⚽ Football Dashboard
-        </h1>
+      <section className="bg-linear-to- from-indigo-600 to-blue-600 rounded-2xl p-8 text-white shadow">
+        <h1 className="text-3xl font-bold mb-2">⚽ Football Dashboard</h1>
         <p className="text-white/80 max-w-xl">
           Explore leagues, matches, teams, and players from top competitions around the world.
         </p>
@@ -18,52 +42,55 @@ const HomePage = () => {
       {/* Area Selection */}
       <section>
         <h2 className="text-xl font-semibold mb-4">Browse by Area</h2>
-
         <div className="grid sm:grid-cols-2 gap-6">
-          {/* Europe */}
-          <Link
-             to=".competitions/2067"
-            className="group bg-white rounded-xl p-6 shadow hover:shadow-lg transition"
-          >
-            <div className="flex items-center gap-4">
-              <span className="text-4xl">🌍</span>
+          {AREAS.map(area => (
+            <button
+              key={area.id}
+              onClick={() => setActiveArea(activeArea === area.id ? null : area.id)}
+              className={`group bg-white rounded-xl p-6 shadow hover:shadow-lg transition flex items-center gap-4 ${
+                activeArea === area.id ? "border-2 border-indigo-600" : ""
+              }`}
+            >
+              <span className="text-4xl">{area.emoji}</span>
               <div>
-                <h3 className="font-bold text-lg group-hover:text-indigo-600">
-                  Europe
-                </h3>
-                <p className="text-sm text-gray-500">
-                  UEFA leagues & tournaments
-                </p>
+                <h3 className="font-bold text-lg group-hover:text-indigo-600">{area.name}</h3>
+                <p className="text-sm text-gray-500">{area.description}</p>
               </div>
-            </div>
-          </Link>
-
-          {/* World */}
-          <Link
-            to="/competition/2267"
-            className="group bg-white rounded-xl p-6 shadow hover:shadow-lg transition"
-          >
-            <div className="flex items-center gap-4">
-              <span className="text-4xl">🌎</span>
-              <div>
-                <h3 className="font-bold text-lg group-hover:text-indigo-600">
-                  World
-                </h3>
-                <p className="text-sm text-gray-500">
-                  International competitions
-                </p>
-              </div>
-            </div>
-          </Link>
+            </button>
+          ))}
         </div>
+
+        {/* Competitions */}
+        {activeArea && (
+          <div className="mt-6">
+            <h3 className="text-lg font-semibold mb-3">Competitions</h3>
+            {loading && <p className="text-gray-500">Loading competitions...</p>}
+            {!loading && competitions.length === 0 && (
+              <p className="text-gray-500">No competitions available</p>
+            )}
+            {!loading && competitions.length > 0 && (
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {competitions.map(comp => (
+                  <Link
+                    key={comp.id}
+                    to={`/competition/${comp.id}`}
+                    className="bg-white rounded-xl p-4 shadow hover:shadow-lg flex items-center gap-3 transition"
+                  >
+                    {comp.emblem && (
+                      <img src={comp.emblem} alt={comp.name} className="w-10 h-10" />
+                    )}
+                    <span className="font-medium">{comp.name}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </section>
 
       {/* Popular Competitions */}
       <section>
-        <h2 className="text-xl font-semibold mb-4">
-          Popular Competitions
-        </h2>
-
+        <h2 className="text-xl font-semibold mb-4">Popular Competitions</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {[
             { id: 2021, name: "Premier League", logo: "https://crests.football-data.org/PL.png" },
@@ -80,25 +107,6 @@ const HomePage = () => {
             </Link>
           ))}
         </div>
-      </section>
-
-      {/* Info / CTA */}
-      <section className="bg-white rounded-xl p-6 shadow flex flex-col sm:flex-row justify-between items-center gap-4">
-        <div>
-          <h3 className="font-semibold text-lg">
-            Live football data powered by Football-Data API
-          </h3>
-          <p className="text-sm text-gray-500">
-            Matches • Standings • Teams • Players
-          </p>
-        </div>
-
-        <Link
-          to="/competition/2021"
-          className="px-5 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition"
-        >
-          Explore Now →
-        </Link>
       </section>
     </div>
   );
