@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
+import type { StandingTableItem } from "../types/football";
 type Props = {
-  table?: any[];
+  table?: StandingTableItem[];
 };
 const StandingsTable = ({ table = [] }: Props) => {
   if (!table.length) return <p>No standings available</p>;
@@ -18,7 +19,7 @@ const StandingsTable = ({ table = [] }: Props) => {
             Team
           </th>
           <th className="px-3 py-2 text-center text-sm font-semibold text-gray-600">
-          PL
+            PL
           </th>
           <th className="px-3 py-2 text-center text-sm font-semibold text-gray-600">
             GD
@@ -38,14 +39,14 @@ const StandingsTable = ({ table = [] }: Props) => {
             <td className="px-3 py-2 text-sm text-gray-700">
               {row.position}
             </td>
-            <Link
-              to={`/teams/${row.team.id}`}
-              className="flex items-center gap-2 hover:underline"
-            >
-              <td className="px-3 py-2 text-sm font-medium text-gray-800 flex gap-2 items-center">
+            <td className="px-3 py-2 text-sm font-medium text-gray-800 flex gap-2 items-center">
+              <Link
+                to={`/teams/${row.team.id}`}
+                className="flex items-center gap-2 hover:underline"
+              >
                 <img src={row.team.crest} alt="" className="h-6 w-6" /> {row.team.name}
-              </td>
-            </Link>
+              </Link>
+            </td>
             <td className="px-3 py-2 text-center text-sm text-gray-700">
               {row.playedGames}
             </td>

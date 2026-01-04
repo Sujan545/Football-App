@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api/competitionApi";
+import type { Competition } from "../types/football";
 
 const AREAS = [
   { id: 2077, name: "Europe", emoji: "🌍", description: "UEFA leagues & tournaments" },
@@ -9,7 +10,7 @@ const AREAS = [
 
 const HomePage = () => {
   const [activeArea, setActiveArea] = useState<number | null>(null);
-  const [competitions, setCompetitions] = useState<any[]>([]);
+  const [competitions, setCompetitions] = useState<Competition []>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

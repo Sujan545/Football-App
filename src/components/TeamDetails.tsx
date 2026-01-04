@@ -1,39 +1,9 @@
 import { Link } from "react-router-dom";
+import type { Team } from "../types/football";
 
-interface Player {
-    id: number;
-    name: string;
-    position: string;
-    nationality: string;
-    dateOfBirth: string;
-}
 
-interface Coach {
-    name: string;
-    nationality: string;
-    contract?: {
-        start: string;
-        until: string;
-    };
-}
 
-interface Team {
-    id: number;
-    name: string;
-    shortName: string;
-    tla: string;
-    crest: string;
-    area: { name: string; flag: string };
-    venue: string;
-    address?: string;
-    clubColors?: string;
-    founded?: number;
-    coach?: Coach;
-    squad?: Player[];
-    website?: string;
-}
-
-const TeamsDetails = ({ team }: { team: Team }) => {
+const TeamsDetails = ({ team }: { team: Team}) => {
     if (!team) return <p className="p-6">Team not found</p>;
 
     return (
@@ -44,13 +14,12 @@ const TeamsDetails = ({ team }: { team: Team }) => {
                     <h1 className="text-2xl font-bold">{team.name}</h1>
                     <p className="text-gray-500">{team.shortName} ({team.tla})</p>
                     <p className="flex items-center gap-2">
-                        <img src={team.area.flag} alt={team.area.name} className="w-5 h-5" />
-                        <span>{team.area.name}</span>
+                        <img src={team.area?.flag} alt={team.area?.name} className="w-5 h-5" />
+                        <span>{team.area?.name}</span>
                     </p>
                 </div>
             </div>
 
-            {/* Basic Info */}
             <div className="bg-white shadow rounded-lg p-4 space-y-2">
                 {team.venue && <p><b>Venue:</b> {team.venue}</p>}
                 {team.address && <p><b>Address:</b> {team.address}</p>}

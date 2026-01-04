@@ -1,32 +1,18 @@
-import type { Player } from "../types/football";
+import type { Player} from "../types/football";
+
 
 interface PlayerDetailsProps {
-  player: Player | null;
-}
-
-function calculateAge(dateOfBirth: string): number {
-  const today = new Date();
-  const birthDate = new Date(dateOfBirth);
-
-  let age = today.getFullYear() - birthDate.getFullYear();
-
-  const monthDiff = today.getMonth() - birthDate.getMonth();
-  const dayDiff = today.getDate() - birthDate.getDate();
-
-  if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
-    age--;
-  }
-
-  return age;
+  player: Player ;
 }
 
 export default function PlayerDetails({ player }: PlayerDetailsProps) {
   if (!player) {
     return <p className="p-6 text-gray-500">Player not found</p>;
   }
-
+ const competitionLength = player?.currentTeam?.runningCompetitions?.length
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-6">
+      {/* Player Header */}
       <div className="flex items-center gap-4">
         {player.currentTeam?.crest && (
           <img
@@ -39,61 +25,74 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
         <div>
           <h1 className="text-3xl font-bold">{player.name}</h1>
           <p className="text-gray-600">
-            {player.position} · #{player.shirtNumber ?? "N/A"}
+            {player.position ?? "N/A"} · #{player.shirtNumber ?? "N/A"}
           </p>
         </div>
       </div>
 
+      {/* Player Information */}
       <Section title="Player Information">
         <Info label="First Name" value={player.firstName} />
         <Info label="Last Name" value={player.lastName} />
         <Info label="Nationality" value={player.nationality} />
         <Info label="Date of Birth" value={player.dateOfBirth} />
         <Info label="Section" value={player.section} />
-        <Info label="Position" value={player.position} />
+        <Info label="Position" value={player.position ?? "N/A"} />
         <Info label="Last Updated" value={formatDate(player.lastUpdated)} />
-        <Info label="Age" value={`${calculateAge(player.dateOfBirth)} years`}/>
+        <Info label="Age" value={`${calculateAge(player.dateOfBirth)} years`} />
       </Section>
 
+      {/* Current Team */}
       {player.currentTeam && (
         <Section title="Current Team">
           <Info label="Club Name" value={player.currentTeam.name} />
           <Info label="Short Name" value={player.currentTeam.shortName} />
           <Info label="TLA" value={player.currentTeam.tla} />
-          <Info label="Founded" value={player.currentTeam.founded} />
-          <Info label="Stadium" value={player.currentTeam.venue} />
-          <Info label="Club Colors" value={player.currentTeam.clubColors} />
-          <Info label="Address" value={player.currentTeam.address} />
+          <Info label="Founded" value={player.currentTeam.founded ?? "N/A"} />
+          <Info label="Stadium" value={player.currentTeam.venue ?? "N/A"} />
+          <Info label="Club Colors" value={player.currentTeam.clubColors ?? "N/A"} />
+          <Info label="Address" value={player.currentTeam.address ?? "N/A"} />
 
-          <div className="col-span-2">
-            <a
-              href={player.currentTeam.website}
-              target="_blank"
-              rel="noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              Visit Official Website
-            </a>
-          </div>
+          {player.currentTeam.website && (
+            <div className="col-span-2">
+              <a
+                href={player.currentTeam.website}
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                Visit Official Website
+              </a>
+            </div>
+          )}
         </Section>
       )}
+
+      {/* Current Team Country */}
       {player.currentTeam?.area && (
-        <Section title="Current Team">
+        <Section title="Current Team Country">
           <Info label="Country Name" value={player.currentTeam.area.name} />
           <Info label="Code" value={player.currentTeam.area.code} />
-         <img src={player.currentTeam.area.flag} alt={player.currentTeam.area.flag} className="w-8 h-8" /> 
+          {player.currentTeam.area.flag && (
+            <img
+              src={player.currentTeam.area.flag}
+              alt={player.currentTeam.area.name}
+              className="w-8 h-8"
+            />
+          )}
         </Section>
       )}
 
-      {player?.currentTeam?.runningCompetitions?.length > 0 && (
+      {/* Running Competitions */}
+      {competitionLength && competitionLength > 0 && (
         <Section title="Running Competitions">
           <div className="grid grid-cols-2 gap-4">
-            {player.currentTeam?.runningCompetitions?.map(comp => (
+            {player.currentTeam?.runningCompetitions?.map((comp) => (
               <div
                 key={comp.id}
                 className="flex items-center gap-3 bg-gray-50 shadow rounded-lg p-4"
               >
-                <img src={comp.emblem} alt={comp.name} className="w-8 h-8" />
+                <img src={comp.emblem ?? ""} alt={comp.name} className="w-8 h-8" />
                 <div>
                   <p className="font-medium">{comp.name}</p>
                   <p className="text-sm text-gray-500">{comp.type}</p>
@@ -104,6 +103,7 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
         </Section>
       )}
 
+      {/* Contract */}
       {player.currentTeam?.contract && (
         <Section title="Contract">
           <Info label="Start" value={player.currentTeam.contract.start} />
@@ -113,7 +113,6 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
     </div>
   );
 }
-
 
 function Section({
   title,
@@ -130,6 +129,7 @@ function Section({
   );
 }
 
+
 function Info({
   label,
   value,
@@ -143,6 +143,22 @@ function Info({
       <p className="font-medium">{value}</p>
     </div>
   );
+}
+
+function calculateAge(dateOfBirth: string): number {
+  const today = new Date();
+  const birthDate = new Date(dateOfBirth);
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  const dayDiff = today.getDate() - birthDate.getDate();
+
+  if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+    age--;
+  }
+
+  return age;
 }
 
 function formatDate(date: string) {

@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../api/competitionApi";
 import PlayerDetails from "../components/PlayerDetails";
+import { type Player } from "../types/football";
 
 const PlayerDetailsPage = () => {
   const { personId} = useParams();
-  const [person ,setPerson] = useState<any>(null);
+  const [person ,setPerson] = useState<Player| null>(null);
   const [loading, setLoading] = useState(true);
 
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import type { Match } from "../types/football";
 
 type FilterType =
   | "ALL"
@@ -9,7 +10,11 @@ type FilterType =
   | "FINISHED"
   | "LIVE";
 
-const MatchesList = ({ matches }: any) => {
+interface MatchesListProps {
+  matches: Match[];
+}
+
+const MatchesList = ({ matches }:MatchesListProps ) => {
   if (!matches?.length) return <p>No matches available</p>;
 
   const [openMenu, setOpenMenu] = useState(false);

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
+import type { Match } from "../types/football";
 
 type MatchCardProps = {
-  match: any;
+  match: Match;
 };
 
 const MatchCard = ({ match }: MatchCardProps) => {

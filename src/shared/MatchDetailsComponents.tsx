@@ -1,8 +1,13 @@
+import type { Match } from "../types/football";
+
+
+
 type MatchDetailsProps = {
-  match: any;
+  match:Match |null;
+  
 };
 
-const MatchDetailsComponents = ({ match }: MatchDetailsProps) => {
+const MatchDetailsComponents = ({ match }:MatchDetailsProps) => {
   if (!match) {
     return <p className="p-6">Match not found</p>;
   }
@@ -15,8 +20,7 @@ const MatchDetailsComponents = ({ match }: MatchDetailsProps) => {
       {/* Competition Header */}
       <div className="flex justify-between items-center border-b border-gray-300 pb-4">
         <div className="flex items-center gap-3">
-          <img
-            src={match.competition.emblem}
+          <img src={match.competition.emblem}
             alt={match.competition.name}
             className="w-8 h-8"
           />

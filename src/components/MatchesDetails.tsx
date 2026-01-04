@@ -3,8 +3,9 @@ import { useState } from "react";
 import MatchCard from "../shared/MatchCard";
 import MatchDetailsComponents from "../shared/MatchDetailsComponents";
 import MatchInfo from "../shared/MatchInfo";
+import type { AggregatedMatchesResponse, Match } from "../types/football";
 
-const MatchDetails = ({ match, headToHead }: { match: any; headToHead: any }) => {
+const MatchDetails = ({ match, headToHead }: { match:Match; headToHead:AggregatedMatchesResponse }) => {
   const [showH2H, setShowH2H] = useState(false);
   const [openMainMatch,setOpenMainMatch]=useState(false)
   const [openMatches, setOpenMatches] = useState<{ [key: number]: boolean }>({});
@@ -16,6 +17,7 @@ const MatchDetails = ({ match, headToHead }: { match: any; headToHead: any }) =>
       [matchId]: !prev[matchId],
     }));
   };
+   console.log(headToHead)
   return (
     <div className="max-w-3xl mx-auto p-6 space-y-6">
       <div className="flex items-center gap-3">
@@ -73,7 +75,7 @@ const MatchDetails = ({ match, headToHead }: { match: any; headToHead: any }) =>
 
         {showH2H && (
           <div className="space-y-3">
-            {headToHead?.matches?.map((h2hMatch: any) => (
+            {headToHead.matches?.map((h2hMatch) => (
               <div key={h2hMatch.id}>
                 <div
                   className="cursor-pointer"

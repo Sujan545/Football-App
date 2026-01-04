@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import { api } from "../api/competitionApi";
 import MatchesCard from "../components/MatchesList";
 import StandingsTable from "../components/StandingsTable";
+import type { Match,StandingTableItem } from "../types/football";
 
 
 const StandingsPage = () => {
   const { id } = useParams();
 
-  const [matches, setMatches] = useState<any[]>([]);
-  const [standings, setStandings] = useState<any[]>([]);
+  const [matches, setMatches] = useState<Match[]>([]);
+  const [standings, setStandings] = useState<StandingTableItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import type { Scorer } from "../types/football";
 
-const ScorersTable = ({ scorers }: { scorers: any }) => {
+interface ScorersTableProps {
+  scorers: Scorer[]; // array of scorers
+}
+
+const ScorersTable = ({ scorers }: ScorersTableProps) => {
   if (!scorers || scorers.length === 0) {
     return (
       <p className="text-sm text-gray-500">
@@ -29,14 +34,12 @@ const ScorersTable = ({ scorers }: { scorers: any }) => {
           </thead>
 
           <tbody>
-            {scorers.scorers.map((scorer, index) => (
+            {scorers.map((scorer, index) => (
               <tr
                 key={scorer.player.id}
                 className="border-t border-gray-300 hover:bg-gray-50"
               >
-                <td className="px-4 py-2 font-medium">
-                  {index + 1}
-                </td>
+                <td className="px-4 py-2 font-medium">{index + 1}</td>
 
                 <td className="px-4 py-2">
                   <Link
