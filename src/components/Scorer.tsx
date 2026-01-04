@@ -38,7 +38,6 @@ const ScorersTable = ({ scorers }: { scorers: any }) => {
                   {index + 1}
                 </td>
 
-                {/* PLAYER LINK */}
                 <td className="px-4 py-2">
                   <Link
                     to={`/persons/${scorer.player.id}`}
@@ -51,7 +50,6 @@ const ScorersTable = ({ scorers }: { scorers: any }) => {
                   </p>
                 </td>
 
-                {/* TEAM LINK */}
                 <td className="px-4 py-2">
                   <Link
                     to={`/teams/${scorer.team.id}`}

@@ -12,7 +12,6 @@ const HomePage = () => {
   const [competitions, setCompetitions] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // Fetch competitions when area changes
   useEffect(() => {
     if (!activeArea) return;
 
@@ -31,15 +30,13 @@ const HomePage = () => {
 
   return (
     <div className="space-y-10 p-6">
-      {/* Hero Section */}
-      <section className="bg-linear-to- from-indigo-600 to-blue-600 rounded-2xl p-8 text-white shadow">
+      <section className="bg-gradient-to-r from-indigo-600 to-blue-600 rounded-2xl p-8 text-white shadow">
         <h1 className="text-3xl font-bold mb-2">⚽ Football Dashboard</h1>
         <p className="text-white/80 max-w-xl">
           Explore leagues, matches, teams, and players from top competitions around the world.
         </p>
       </section>
 
-      {/* Area Selection */}
       <section>
         <h2 className="text-xl font-semibold mb-4">Browse by Area</h2>
         <div className="grid sm:grid-cols-2 gap-6">
@@ -60,7 +57,6 @@ const HomePage = () => {
           ))}
         </div>
 
-        {/* Competitions */}
         {activeArea && (
           <div className="mt-6">
             <h3 className="text-lg font-semibold mb-3">Competitions</h3>
@@ -88,7 +84,6 @@ const HomePage = () => {
         )}
       </section>
 
-      {/* Popular Competitions */}
       <section>
         <h2 className="text-xl font-semibold mb-4">Popular Competitions</h2>
         <div className="grid md:grid-cols-3 gap-6">

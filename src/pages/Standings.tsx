@@ -32,9 +32,6 @@ const StandingsPage = () => {
 
   return (
     <div>
-
-
-
       <h2>Recent Matches</h2>
       <MatchesCard matches={matches} />
 

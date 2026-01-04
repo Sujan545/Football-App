@@ -85,10 +85,10 @@ export default function PlayerDetails({ player }: PlayerDetailsProps) {
         </Section>
       )}
 
-      {player.currentTeam?.runningCompetitions.length > 0 && (
+      {player?.currentTeam?.runningCompetitions?.length > 0 && (
         <Section title="Running Competitions">
           <div className="grid grid-cols-2 gap-4">
-            {player.currentTeam.runningCompetitions?.map(comp => (
+            {player.currentTeam?.runningCompetitions?.map(comp => (
               <div
                 key={comp.id}
                 className="flex items-center gap-3 bg-gray-50 shadow rounded-lg p-4"

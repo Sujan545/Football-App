@@ -75,7 +75,6 @@ const MatchDetails = ({ match, headToHead }: { match: any; headToHead: any }) =>
           <div className="space-y-3">
             {headToHead?.matches?.map((h2hMatch: any) => (
               <div key={h2hMatch.id}>
-                {/* MatchCard clickable */}
                 <div
                   className="cursor-pointer"
                   onClick={() => handleMatchClick(h2hMatch.id)}
@@ -83,7 +82,6 @@ const MatchDetails = ({ match, headToHead }: { match: any; headToHead: any }) =>
                   <MatchCard match={h2hMatch} />
                 </div>
 
-                {/* Show details below clicked MatchCard */}
                 {openMatches[h2hMatch.id] && (
                   <div className="mt-3">
                     <MatchDetailsComponents match={h2hMatch} />

@@ -38,7 +38,6 @@ const TeamsDetails = ({ team }: { team: Team }) => {
 
     return (
         <div className="max-w-4xl mx-auto p-6 space-y-6">
-            {/* Header */}
             <div className="flex items-center gap-4">
                 <img src={team.crest} alt={team.name} className="w-16 h-16" />
                 <div>

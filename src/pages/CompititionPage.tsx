@@ -45,8 +45,7 @@ const CompetitionPage = () => {
             })
             .finally(() => setLoading(false));
     }, [id]);
-    console.log(scorers)
-    console.log(id)
+  
     return (
         <div>
             {competitions.map((comp) => (
@@ -96,7 +95,7 @@ const CompetitionPage = () => {
             </div>
 
 
-            {/* CONTENT */}
+          
             {loading && <p>Loading...</p>}
 
             {!loading && activeTab === "matches" && (
