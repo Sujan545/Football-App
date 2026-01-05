@@ -23,7 +23,7 @@ const CompetitionPage = () => {
   const [competitions, setCompetitions] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
-  /* Fetch competitions list */
+ 
   useEffect(() => {
     setLoading(true);
     api
@@ -35,7 +35,7 @@ const CompetitionPage = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  /* Fetch competition details */
+ 
   useEffect(() => {
     if (!id) return;
 
@@ -59,7 +59,7 @@ const CompetitionPage = () => {
 
   return (
     <div>
-      {/* Competition Header */}
+     
       {competitions.map((comp) =>
         comp.code === id ? (
           <div
@@ -76,7 +76,6 @@ const CompetitionPage = () => {
         ) : null
       )}
 
-      {/* Tabs */}
       <div className="flex gap-4 mb-4">
         {["matches", "standings", "topScorers"].map((tab) => (
           <button

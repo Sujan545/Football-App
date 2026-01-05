@@ -17,7 +17,7 @@ const MatchDetailsComponents = ({ match }:MatchDetailsProps) => {
   return (
     <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow p-6 space-y-8">
       
-      {/* Competition Header */}
+
       <div className="flex justify-between items-center border-b border-gray-300 pb-4">
         <div className="flex items-center gap-3">
           <img src={match.competition.emblem}
@@ -38,9 +38,8 @@ const MatchDetailsComponents = ({ match }:MatchDetailsProps) => {
         </div>
       </div>
 
-      {/* Score Section */}
       <div className="flex justify-between items-center text-center">
-        {/* Home Team */}
+       
         <div className="w-1/3 flex flex-col items-center">
           <img
             src={match.homeTeam.crest}
@@ -53,7 +52,7 @@ const MatchDetailsComponents = ({ match }:MatchDetailsProps) => {
           </p>
         </div>
 
-        {/* Score */}
+  
         <div>
           <p className="text-4xl font-bold">
             {match.score.fullTime.home} : {match.score.fullTime.away}
@@ -66,7 +65,7 @@ const MatchDetailsComponents = ({ match }:MatchDetailsProps) => {
           </span>
         </div>
 
-        {/* Away Team */}
+    
         <div className="w-1/3 flex flex-col items-center">
           <img
             src={match.awayTeam.crest}
@@ -80,7 +79,7 @@ const MatchDetailsComponents = ({ match }:MatchDetailsProps) => {
         </div>
       </div>
 
-      {/* Coaches */}
+
       <div className="grid md:grid-cols-2 gap-6 border-t border-gray-300  pt-6">
         <div>
           <h3 className="font-semibold mb-1">Home Coach</h3>
@@ -99,7 +98,6 @@ const MatchDetailsComponents = ({ match }:MatchDetailsProps) => {
         </div>
       </div>
 
-      {/* Match Facts */}
       <div className="border-t border-gray-300 pt-6 space-y-3 text-sm">
         <div className="flex justify-between">
           <span className="text-gray-500">Attendance</span>

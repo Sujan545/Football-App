@@ -91,15 +91,7 @@ export type MatchStatus =
   | "IN_PLAY"
   | "PAUSED"
   | "FINISHED";
-
-// export interface Match {
-//   id: number;
-//   utcDate: string;
-//   homeTeam: Team;
-//   awayTeam: Team;
-//   status: MatchStatus;
-// }
-
+  
 export interface Scorer {
   player: Player;
   team: Team;
@@ -204,7 +196,7 @@ export interface Match {
 
   score: Score;
 
-  goals?: any[];         
+  goals?: any[];
   penalties?: any[];
   bookings?: any[];
   substitutions?: any[];
@@ -229,8 +221,8 @@ export interface Filters {
 export interface ResultSet {
   competitions: string;
   count: number;
-  first: string; 
-  last: string; 
+  first: string;
+  last: string;
 }
 
 export interface Aggregates {
@@ -243,6 +235,6 @@ export interface Aggregates {
 export interface AggregatedMatchesResponse {
   aggregates?: Aggregates;
   filters?: Filters;
-  matches?: Match[]; 
+  matches?: Match[];
   resultSet?: ResultSet;
 }

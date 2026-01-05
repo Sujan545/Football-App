@@ -43,7 +43,6 @@ const TeamsDetails = ({ team }: { team: Team}) => {
                 )}
             </div>
 
-            {/* Squad */}
             {team.squad && team.squad.length > 0 && (
                 <div className="bg-gray-50 shadow rounded-lg p-4">
                     <h2 className="text-xl font-bold mb-4">Squad</h2>

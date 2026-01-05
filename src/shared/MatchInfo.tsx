@@ -10,7 +10,7 @@ const MatchInfo = ({ match }: MatchInfoProps) => {
 
   return (
     <div className="bg-white shadow rounded-xl p-6 max-w-3xl mx-auto space-y-6">
-      {/* Competition Header */}
+   
       <div className="flex items-center gap-3">
         <img src={match.competition.emblem} alt={match.competition.name} className="w-8 h-8" />
         <p className="font-semibold text-lg">{match.competition.name}</p>

@@ -14,7 +14,7 @@ interface MatchesListProps {
   matches: Match[];
 }
 
-const MatchesList = ({ matches }:MatchesListProps ) => {
+const MatchesList = ({ matches }: MatchesListProps) => {
   if (!matches?.length) return <p>No matches available</p>;
 
   const [openMenu, setOpenMenu] = useState(false);
@@ -55,13 +55,7 @@ const MatchesList = ({ matches }:MatchesListProps ) => {
       {label}
     </button>
   );
-  if (!filteredMatches.length) {
-    return (
-      <p className="text-gray-500 text-sm">
-        No data available for selected filter
-      </p>
-    );
-  }
+
   return (
     <div className="space-y-3">
       <div className="flex justify-between items-center">
@@ -88,6 +82,11 @@ const MatchesList = ({ matches }:MatchesListProps ) => {
           )}
         </div>
       </div>
+      {filteredMatches.length === 0 && (
+        <p className="text-gray-500 text-sm">
+          No data available for selected filter
+        </p>
+      )}
 
       {filteredMatches.map((match: any) => {
         const date = new Date(match.utcDate).toLocaleString();

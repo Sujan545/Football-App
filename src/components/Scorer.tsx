@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import type { Scorer } from "../types/football";
 
 interface ScorersTableProps {
-  scorers: Scorer[]; // array of scorers
+  scorers: Scorer[]; 
 }
 
 const ScorersTable = ({ scorers }: ScorersTableProps) => {
